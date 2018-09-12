@@ -21,7 +21,8 @@ class _MovieListPageState extends State<MovieListPage> {
 
   _getMovieData() async {
     var httpClient = new HttpClient();
-    var url = 'https://api.douban.com/v2/movie/in_theaters';
+    String api = '?apikey=0b2bdeda43b5688921839c8ecb20399b';
+    var url = 'https://api.douban.com/v2/movie/in_theaters' + api;
     var request = await httpClient.getUrl(Uri.parse(url));
     var response = await request.close();
     if (response.statusCode == HttpStatus.ok) {
@@ -75,7 +76,7 @@ class _MovieListPageState extends State<MovieListPage> {
             movie.title,
             style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
           ),
-//          new Text('导演：' + movie.directors),
+          new Text('导演：' + movie.directors),
           new Text('主演：' + movie.casts),
           new Text('类型：' + movie.genres),
           new Text('评分：' + movie.averageRating),

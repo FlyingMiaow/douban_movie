@@ -57,11 +57,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                 widget.movie.title,
                 style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
               ),
-              new Text('导演：' + widget.movie.directors),
-              new Text('类型：' + widget.movie.genres),
               new Text('上映日期：' + movieDetail.pubdates),
               new Text('时长：' + movieDetail.durations),
+              new Text('类型：' + widget.movie.genres),
               new Text('国籍：' + movieDetail.countries),
+              new Text('语言：' + movieDetail.languages),
               new Text('评分：' + widget.movie.averageRating),
             ],
           ),
@@ -114,6 +114,41 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     return castItems;
   }
 
+  _buildDirectorItems() {
+    List<Widget> directorItems = [];
+    for (int i = 0; i < movieDetail.directors.length; i++) {
+      DirectorDetail director = movieDetail.directors[i];
+      var directorItem = new Card(
+        child: new Row(
+          children: <Widget>[
+            new Padding(
+              padding: new EdgeInsets.only(right: 10.0),
+              child: new Image.network(
+                director.smallAvatar,
+                width: 100.0,
+                height: 100.0,
+              ),
+            ),
+            new Expanded(
+              child: new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  new Text(
+                    director.name,
+                    style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                  ),
+                  new Text(director.nameEng),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+      directorItems.add(directorItem);
+    }
+    return directorItems;
+  }
+
   @override
   Widget build(BuildContext context) {
     var content;
@@ -143,6 +178,21 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             new Padding(
               padding: new EdgeInsets.only(right: 10.0, bottom: 10.0, left: 10.0),
               child: _buildMovieSummary(),
+            ),
+            new Padding(
+              padding: const EdgeInsets.only(top: 5.0),
+              child: new Text(
+                '导演详情',
+                style: new TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16.0,
+                  color: Colors.blue,
+                ),
+              ),
+            ),
+            new Padding(
+                padding: new EdgeInsets.only(right: 10.0, bottom: 10.0, left: 10.0),
+                child: new Column(children: _buildDirectorItems()),
             ),
             new Padding(
               padding: const EdgeInsets.only(top: 5.0),
