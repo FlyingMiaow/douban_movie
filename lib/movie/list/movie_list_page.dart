@@ -45,7 +45,9 @@ class _MovieListPageState extends State<MovieListPage> {
         child: new Text('正在获取数据'),
       );
     } else {
-      movieItems = new ListView(children: _buildMovieList());
+      movieItems = new Scrollbar(
+        child: new ListView(children: _buildMovieList()),
+      );
     }
     return new Scaffold(
       appBar: new AppBar(
