@@ -39,6 +39,80 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     }
   }
 
+  @override
+  Widget build(BuildContext context) {
+    var content;
+    if (movieDetail == null) {
+      content = new Center(
+        child: new Text('正在获取数据'),
+      );
+    } else {
+      content = new Scrollbar(
+        child: new SingleChildScrollView(
+          child: new Column(
+            children: <Widget>[
+              new Container(
+                padding: new EdgeInsets.all(10.0),
+                child: _buildMovieDetail(),
+              ),
+              new Padding(
+                padding: new EdgeInsets.only(top: 5.0),
+                child: new Text(
+                  '剧情简介',
+                  style: new TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.0,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+              new Padding(
+                padding: const EdgeInsets.only(right: 10.0, bottom: 10.0, left: 10.0),
+                child: _buildMovieSummary(),
+              ),
+              new Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: new Text(
+                  '导演详情',
+                  style: new TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.0,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+              new Padding(
+                padding: const EdgeInsets.only(right: 10.0, bottom: 10.0, left: 10.0),
+                child: new Column(children: _buildDirectorItems()),
+              ),
+              new Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: new Text(
+                  '演员详情',
+                  style: new TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.0,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+              new Padding(
+                padding: const EdgeInsets.only(right: 10.0, bottom: 10.0, left: 10.0),
+                child: new Column(children: _buildCastItems()),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('电影详情'),
+      ),
+      body: content,
+    );
+  }
+
   _buildMovieDetail() {
     return new Row(
       children: <Widget>[
@@ -147,79 +221,5 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       directorItems.add(directorItem);
     }
     return directorItems;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var content;
-    if (movieDetail == null) {
-      content = new Center(
-        child: new Text('正在获取数据'),
-      );
-    } else {
-      content = new Scrollbar(
-        child: new SingleChildScrollView(
-          child: new Column(
-            children: <Widget>[
-              new Container(
-                padding: new EdgeInsets.all(10.0),
-                child: _buildMovieDetail(),
-              ),
-              new Padding(
-                padding: new EdgeInsets.only(top: 5.0),
-                child: new Text(
-                  '剧情简介',
-                  style: new TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-              new Padding(
-                padding: new EdgeInsets.only(right: 10.0, bottom: 10.0, left: 10.0),
-                child: _buildMovieSummary(),
-              ),
-              new Padding(
-                padding: const EdgeInsets.only(top: 5.0),
-                child: new Text(
-                  '导演详情',
-                  style: new TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-              new Padding(
-                padding: new EdgeInsets.only(right: 10.0, bottom: 10.0, left: 10.0),
-                child: new Column(children: _buildDirectorItems()),
-              ),
-              new Padding(
-                padding: const EdgeInsets.only(top: 5.0),
-                child: new Text(
-                  '演员详情',
-                  style: new TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-              new Padding(
-                padding: new EdgeInsets.only(right: 10.0, bottom: 10.0, left: 10.0),
-                child: new Column(children: _buildCastItems()),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('电影详情'),
-      ),
-      body: content,
-    );
   }
 }
