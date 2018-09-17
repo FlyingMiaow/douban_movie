@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:douban_movie/movie/list/movie_list.dart';
 import 'package:douban_movie/movie/detail/movie_detail.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final Movie movie;
@@ -48,14 +49,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       );
     } else {
       content = new Scrollbar(
-        child: new SingleChildScrollView(
-          child: new Column(
-            children: <Widget>[
-              new Container(
-                padding: new EdgeInsets.all(10.0),
-                child: _buildMovieDetail(),
-              ),
-              new Padding(
+        child: new ListView(
+          children: <Widget>[
+            new Container(
+              padding: new EdgeInsets.all(10.0),
+              child: _buildMovieDetail(),
+            ),
+            new Center(
+              child: new Padding(
                 padding: new EdgeInsets.only(top: 5.0),
                 child: new Text(
                   '剧情简介',
@@ -66,14 +67,16 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   ),
                 ),
               ),
-              new Padding(
-                padding: const EdgeInsets.only(right: 10.0, bottom: 10.0, left: 10.0),
-                child: _buildMovieSummary(),
-              ),
-              new Padding(
-                padding: const EdgeInsets.only(top: 5.0),
+            ),
+            new Padding(
+              padding: const EdgeInsets.only(right: 10.0, bottom: 10.0, left: 10.0),
+              child: _buildMovieSummary(),
+            ),
+            new Center(
+              child: new Padding(
+                padding: new EdgeInsets.only(top: 5.0),
                 child: new Text(
-                  '导演详情',
+                  '演职员表',
                   style: new TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0,
@@ -81,27 +84,15 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   ),
                 ),
               ),
-              new Padding(
-                padding: const EdgeInsets.only(right: 10.0, bottom: 10.0, left: 10.0),
-                child: new Column(children: _buildDirectorItems()),
+            ),
+            new SizedBox(
+              height: 170.0,
+              child: new ListView(
+                scrollDirection: Axis.horizontal,
+                children: _buildCrewItems(),
               ),
-              new Padding(
-                padding: const EdgeInsets.only(top: 5.0),
-                child: new Text(
-                  '演员详情',
-                  style: new TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-              new Padding(
-                padding: const EdgeInsets.only(right: 10.0, bottom: 10.0, left: 10.0),
-                child: new Column(children: _buildCastItems()),
-              ),
-            ],
-          ),
+            )
+          ],
         ),
       );
     }
@@ -118,9 +109,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       children: <Widget>[
         new Padding(
           padding: new EdgeInsets.only(right: 10.0),
-          child: new Image.network(
-            widget.movie.smallImage,
-            scale: 1.75,
+          child: new FadeInImage(
+            placeholder: new MemoryImage(kTransparentImage),
+            image: new NetworkImage(
+              widget.movie.smallImage,
+              scale: 1.75,
+            ),
           ),
         ),
         new Expanded(
@@ -153,73 +147,54 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     );
   }
 
-  _buildCastItems() {
-    List<Widget> castItems = [];
-    for (int i = 0; i < movieDetail.casts.length; i++) {
-      CastDetail cast = movieDetail.casts[i];
-      var castItem = new Card(
-        child: new Row(
-          children: <Widget>[
-            new Padding(
-              padding: new EdgeInsets.only(right: 10.0),
-              child: new Image.network(
-                cast.smallAvatar,
-                width: 100.0,
-                height: 100.0,
-              ),
-            ),
-            new Expanded(
-              child: new Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  new Text(
-                    cast.name,
-                    style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
-                  ),
-                  new Text(cast.nameEng),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-      castItems.add(castItem);
-    }
-    return castItems;
-  }
-
-  _buildDirectorItems() {
-    List<Widget> directorItems = [];
+  _buildCrewItems() {
+    List<Widget> crewItems = [];
     for (int i = 0; i < movieDetail.directors.length; i++) {
       DirectorDetail director = movieDetail.directors[i];
       var directorItem = new Card(
-        child: new Row(
-          children: <Widget>[
-            new Padding(
-              padding: new EdgeInsets.only(right: 10.0),
-              child: new Image.network(
-                director.smallAvatar,
-                width: 100.0,
-                height: 100.0,
+        child: new Container(
+          padding: EdgeInsets.only(left: 5.0, right: 5.0),
+          child: new Column(
+            children: <Widget>[
+              new Padding(
+                padding: EdgeInsets.only(bottom: 2.0),
+                child: new Image.network(
+                  director.smallAvatar,
+                  height: 100.0,
+                ),
               ),
-            ),
-            new Expanded(
-              child: new Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  new Text(
-                    director.name,
-                    style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
-                  ),
-                  new Text(director.nameEng),
-                ],
-              ),
-            ),
-          ],
+              new Text(director.name),
+              new Text(director.nameEng),
+              new Text('导演'),
+            ],
+          ),
         ),
       );
-      directorItems.add(directorItem);
+      crewItems.add(directorItem);
     }
-    return directorItems;
+    for (int i = 0; i < movieDetail.casts.length; i++) {
+      CastDetail cast = movieDetail.casts[i];
+      var castItem = new Card(
+        child: new Container(
+          padding: EdgeInsets.only(left: 5.0, right: 5.0),
+          child: new Column(
+            children: <Widget>[
+              new Padding(
+                padding: EdgeInsets.only(bottom: 2.0),
+                child: new Image.network(
+                  cast.smallAvatar,
+                  height: 100.0,
+                ),
+              ),
+              new Text(cast.name),
+              new Text(cast.nameEng),
+              new Text('主演'),
+            ],
+          ),
+        ),
+      );
+      crewItems.add(castItem);
+    }
+    return crewItems;
   }
 }

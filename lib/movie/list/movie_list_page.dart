@@ -43,18 +43,7 @@ class _MovieListPageState extends State<MovieListPage> {
     if (movies.isEmpty) {
       movieItems = new Center(child: new Text('正在获取数据'));
     } else {
-      movieItems = new Scrollbar(
-        child: new SingleChildScrollView(
-          child: new Column(
-            children: <Widget>[
-              _buildSearchBar(),
-              new Padding(
-                padding: const EdgeInsets.only(top: 5.0),
-                child: new Column(children: _buildMovieList()),
-              )
-            ],
-          ),
-        ),
+      movieItems = new ListView(children: _buildMovieList()
       );
     }
     return new Scaffold(
@@ -107,16 +96,25 @@ class _MovieListPageState extends State<MovieListPage> {
     }));
   }
 
+  _buildMovieList() {
+    List<Widget> movieItems = [];
+    for (int i = 0; i < movies.length; i++) {
+      Movie movie = movies[i];
+      movieItems.add(_buildMovieItem(movie));
+    }
+    return movieItems;
+  }
+
   _buildMovieItem(Movie movie) {
     var movieImage = new Padding(
-      padding: const EdgeInsets.only(top: 5.0, right: 10.0, bottom: 5.0, left: 5.0),
-      child: new FadeInImage(
-        placeholder: new MemoryImage(kTransparentImage),
-        image: new NetworkImage(
-          movie.smallImage,
-          scale: 3.0,
-        ),
-      )
+        padding: const EdgeInsets.only(top: 5.0, right: 10.0, bottom: 5.0, left: 5.0),
+        child: new FadeInImage(
+          placeholder: new MemoryImage(kTransparentImage),
+          image: new NetworkImage(
+            movie.smallImage,
+            scale: 3.0,
+          ),
+        )
     );
 
     var movieInformation = new Column(
@@ -158,15 +156,6 @@ class _MovieListPageState extends State<MovieListPage> {
     );
 
     return movieItem;
-  }
-
-  _buildMovieList() {
-    List<Widget> movieItems = [];
-    for (int i = 0; i < movies.length; i++) {
-      Movie movie = movies[i];
-      movieItems.add(_buildMovieItem(movie));
-    }
-    return movieItems;
   }
 
   navigateToMovieDetailPage(Movie movie) {
