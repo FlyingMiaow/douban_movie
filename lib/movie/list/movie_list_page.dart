@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:douban_movie/movie/list/movie_list.dart';
 import 'package:douban_movie/movie/detail/movie_detail_page.dart';
 import 'package:douban_movie/movie/search/movie_search_page.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class MovieListPage extends StatefulWidget {
   @override
@@ -61,7 +62,7 @@ class _MovieListPageState extends State<MovieListPage> {
       appBar: new AppBar(
         title: new Text('热映电影'),
       ),
-      body: RefreshIndicator(child: movieItems, onRefresh: _handleRefresh),
+      body: RefreshIndicator(child: movieItems, onRefresh: _refreshMovieList),
     );
   }
 
@@ -72,27 +73,31 @@ class _MovieListPageState extends State<MovieListPage> {
           new Expanded(
             child: new TextField(
               controller: _textEditingController,
-              onSubmitted: _handleSubmitted,
-              decoration: const InputDecoration.collapsed(
+              onSubmitted: _searchMovie,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(10.0),
                 hintText: '点击搜索影片',
                 hintStyle: TextStyle(fontSize: 12.0),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                )
               ),
             ),
           ),
           new IconButton(
             icon: Icon(Icons.search),
-            onPressed: () => _handleSubmitted(_textEditingController.text),
+            onPressed: () => _searchMovie(_textEditingController.text),
           ),
         ],
       ),
-      padding: const EdgeInsets.only(left: 10.0, right: 5.0),
+      padding: const EdgeInsets.only(left: 5.0),
     );
   }
 
-  _handleSubmitted(String text) {
+  _searchMovie(String text) {
     var movieItem;
     for (int i = 0; i < movies.length; i++) {
-      if (movies[i].title == text) {
+      if (movies[i].title.contains(text)) {
         movieItem = _buildMovieItem(movies[i]);
       }
     }
@@ -105,10 +110,13 @@ class _MovieListPageState extends State<MovieListPage> {
   _buildMovieItem(Movie movie) {
     var movieImage = new Padding(
       padding: const EdgeInsets.only(top: 5.0, right: 10.0, bottom: 5.0, left: 5.0),
-      child: new Image.network(
-        movie.smallImage,
-        scale: 3.0,
-      ),
+      child: new FadeInImage(
+        placeholder: new MemoryImage(kTransparentImage),
+        image: new NetworkImage(
+          movie.smallImage,
+          scale: 3.0,
+        ),
+      )
     );
 
     var movieInformation = new Column(
@@ -119,12 +127,12 @@ class _MovieListPageState extends State<MovieListPage> {
           movie.title,
           style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
         ),
-        new Text('导演：' + movie.directors),
-        new Text('主演：' + movie.casts),
-        new Text('类型：' + movie.genres),
-        new Text('评分：' + movie.averageRating),
+        new Text('导演：${movie.directors}'),
+        new Text('主演：${movie.casts}'),
+        new Text('类型：${movie.genres}'),
+        new Text('评分：${movie.averageRating}'),
         new Text(
-          movie.collectCount + '人看过',
+          '${movie.collectCount}人看过',
           style: new TextStyle(
             fontSize: 12.0,
             color: Colors.redAccent,
@@ -167,14 +175,10 @@ class _MovieListPageState extends State<MovieListPage> {
     }));
   }
 
-  Future<Null> _handleRefresh() async {
+  Future<Null> _refreshMovieList() async {
     _getMovieData();
-    _showSnackBar('刷新成功');
-  }
-
-  _showSnackBar(String value) {
     final snackBar = new SnackBar(
-      content: new Text(value,),
+      content: new Text('刷新成功'),
       duration: new Duration(seconds: 1),
       backgroundColor: Colors.black12,
     );
