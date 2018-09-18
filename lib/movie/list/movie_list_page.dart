@@ -43,7 +43,18 @@ class _MovieListPageState extends State<MovieListPage> {
     if (movies.isEmpty) {
       movieItems = new Center(child: new Text('正在获取数据'));
     } else {
-      movieItems = new ListView(children: _buildMovieList()
+      movieItems = new Scrollbar(
+        child: new SingleChildScrollView(
+          child: new Column(
+            children: <Widget>[
+              _buildSearchBar(),
+              new Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: new Column(children: _buildMovieList()),
+              )
+            ],
+          ),
+        ),
       );
     }
     return new Scaffold(

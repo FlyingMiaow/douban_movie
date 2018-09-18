@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7d982481-3dde-44eb-b2b8-344487ca1ee8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/douban_movie.iml" beforeDir="false" afterPath="$PROJECT_DIR$/douban_movie.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/movie/detail/movie_detail_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/movie/detail/movie_detail_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/movie/list/movie_list_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/movie/list/movie_list_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,16 +16,17 @@
     <session id="-375579027">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.19" value="4" />
           <entry key="project.open.time.20" value="2" />
           <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="12" />
+          <entry key="project.opened" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -51,15 +49,15 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dart" value="10164" />
-          <entry key="txt" value="35" />
+          <entry key="dart" value="10186" />
+          <entry key="txt" value="43" />
           <entry key="yaml" value="35" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Dart" value="10164" />
-          <entry key="PLAIN_TEXT" value="35" />
+          <entry key="Dart" value="10186" />
+          <entry key="PLAIN_TEXT" value="43" />
           <entry key="YAML" value="35" />
         </counts>
       </usages-collector>
@@ -70,8 +68,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/movie/list/movie_list_page.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="45" column="59" lean-forward="true" selection-start-line="45" selection-start-column="59" selection-end-line="45" selection-end-column="59" />
+            <state relative-caret-position="110">
+              <caret line="43" column="57" lean-forward="true" selection-start-line="43" selection-start-column="57" selection-end-line="43" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -88,8 +86,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/movie/detail/movie_detail_page.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="88" column="27" lean-forward="true" selection-start-line="88" selection-start-column="27" selection-end-line="88" selection-end-column="27" />
+            <state relative-caret-position="1476">
+              <caret line="88" column="27" selection-start-line="88" selection-start-column="27" selection-end-line="88" selection-end-column="27" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -122,8 +120,8 @@
         <option value="$PROJECT_DIR$/lib/movie/detail/movie_detail.dart" />
         <option value="$PROJECT_DIR$/lib/movie/search/movie_search_page.dart" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
-        <option value="$PROJECT_DIR$/lib/movie/list/movie_list_page.dart" />
         <option value="$PROJECT_DIR$/lib/movie/detail/movie_detail_page.dart" />
+        <option value="$PROJECT_DIR$/lib/movie/list/movie_list_page.dart" />
       </list>
     </option>
   </component>
@@ -142,9 +140,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
+    <option name="x" value="-9" />
     <option name="y" value="50" />
-    <option name="width" value="1458" />
+    <option name="width" value="1459" />
     <option name="height" value="1035" />
   </component>
   <component name="ProjectView">
@@ -152,9 +150,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -177,6 +173,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -264,7 +262,8 @@
       <workItem from="1536973294158" duration="15775000" />
       <workItem from="1537141630878" duration="140000" />
       <workItem from="1537167873752" duration="5317000" />
-      <workItem from="1537187738328" duration="7600000" />
+      <workItem from="1537187738328" duration="7675000" />
+      <workItem from="1537274257938" duration="1459000" />
     </task>
     <task id="LOCAL-00001" summary="电影详情页添加导演详情">
       <created>1536761787045</created>
@@ -287,17 +286,24 @@
       <option name="project" value="LOCAL" />
       <updated>1537141747587</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="更新布局代码">
+      <created>1537199872014</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1537199872014</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97818000" />
+    <option name="totallyTimeSpent" value="99352000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="40" width="1166" height="828" extended-state="0" />
+    <frame x="-7" y="40" width="1167" height="828" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.33574006" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.33543733" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Build Variants" order="3" side_tool="true" />
@@ -320,7 +326,7 @@
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="12" weight="0.329429" />
       <window_info anchor="bottom" id="Terminal" order="13" />
-      <window_info anchor="bottom" id="Messages" order="14" weight="0.329429" />
+      <window_info active="true" anchor="bottom" id="Messages" order="14" visible="true" weight="0.32935917" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -345,7 +351,8 @@
     <MESSAGE value="电影详情页添加导演详情" />
     <MESSAGE value="添加滚动条" />
     <MESSAGE value="添加影片搜索" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加影片搜索" />
+    <MESSAGE value="更新布局代码" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新布局代码" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://E:/Flutter_SDK/flutter/packages/flutter/lib/src/widgets/framework.dart">
@@ -391,13 +398,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/movie/search/movie_search_page.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -405,20 +405,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/movie/detail/movie_detail_page.dart">
+    <entry file="file://$PROJECT_DIR$/lib/movie/list/movie_list_page.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="88" column="27" lean-forward="true" selection-start-line="88" selection-start-column="27" selection-end-line="88" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="110">
+          <caret line="43" column="57" lean-forward="true" selection-start-line="43" selection-start-column="57" selection-end-line="43" selection-end-column="57" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/movie/list/movie_list_page.dart">
+    <entry file="file://$PROJECT_DIR$/lib/movie/search/movie_search_page.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="45" column="59" lean-forward="true" selection-start-line="45" selection-start-column="59" selection-end-line="45" selection-end-column="59" />
+        <state relative-caret-position="108">
+          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/movie/detail/movie_detail_page.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1476">
+          <caret line="88" column="27" selection-start-line="88" selection-start-column="27" selection-end-line="88" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
