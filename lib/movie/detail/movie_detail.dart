@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class CastDetail {
   final String smallAvatar;
   final String nameEng;
@@ -43,8 +41,7 @@ class MovieDetail {
     this.directors,
   });
 
-  static MovieDetail getDetailData(String movieDetailData) {
-    var jsonData = json.decode(movieDetailData);
+  static MovieDetail getDetailData(jsonData) {
     List pubdatesData = jsonData['pubdates'];
     List durationsData = jsonData['durations'];
     List languagesData = jsonData['languages'];

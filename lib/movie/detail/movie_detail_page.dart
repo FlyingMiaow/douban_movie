@@ -34,8 +34,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     var response = await request.close();
     if (response.statusCode == HttpStatus.ok) {
       var movieDetailData = await response.transform(utf8.decoder).join();
+      var jsonData = json.decode(movieDetailData);
       setState(() {
-        movieDetail = MovieDetail.getDetailData(movieDetailData);
+        movieDetail = MovieDetail.getDetailData(jsonData);
       });
     }
   }

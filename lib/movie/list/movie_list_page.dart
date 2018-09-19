@@ -19,6 +19,7 @@ class _MovieListPageState extends State<MovieListPage> {
   List<Movie> movies = [];
   int start = 0;
   int end = 0;
+  int totalNumberOfMovies = 0;
   bool isRunning = false;
 
   @override
@@ -27,7 +28,14 @@ class _MovieListPageState extends State<MovieListPage> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         start = end;
+        if (start >= totalNumberOfMovies) {
+          _scaffoldKey.currentState.showSnackBar(_buildSnackBar('没有更多电影'));
+          return;
+        }
         end += 5;
+        if (end >= totalNumberOfMovies) {
+          end = totalNumberOfMovies;
+        }
         _getMovieData('get');
         _scaffoldKey.currentState.showSnackBar(_buildSnackBar('加载更多电影成功'));
       }
@@ -53,12 +61,22 @@ class _MovieListPageState extends State<MovieListPage> {
       var response = await request.close();
       if (response.statusCode == HttpStatus.ok) {
         var movieListData = await response.transform(utf8.decoder).join();
+        var jsonData = json.decode(movieListData);
+        jsonData = jsonData['subjects'];
+        totalNumberOfMovies = jsonData.length;
+        if (end == 0) {
+          if (totalNumberOfMovies > 5) {
+            end = 5;
+          } else {
+            end = totalNumberOfMovies;
+          }
+        }
         setState(() {
           if (flag == 'get') {
-            movies = Movie.getData(movieListData, movies, start, end);
+            movies = Movie.getData(jsonData, movies, start, end);
             end = movies.length;
           } else if (flag == 'update') {
-            movies = Movie.updateData(movieListData, 0, end);
+            movies = Movie.updateData(jsonData, 0, end);
           }
           isRunning = false;
         });

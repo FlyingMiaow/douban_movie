@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Movie {
   final String averageRating;
   final String genres;
@@ -21,33 +19,15 @@ class Movie {
     this.id,
   });
 
-  static List<Movie> getData(String movieListData, List<Movie> movies, int start, int end) {
-    var jsonData = json.decode(movieListData);
-    jsonData = jsonData['subjects'];
-    if (start > jsonData.length) {
-      return movies;
-    }
-    if (end == 0) {
-      if (jsonData.length > 5) {
-        end = 5;
-      } else {
-        end = jsonData.length;
-      }
-    } else {
-      if (end > jsonData.length) {
-        end = jsonData.length;
-      }
-    }
+  static List<Movie> getData(jsonData, List<Movie> movies, int start, int end) {
     for (int i = start; i < end; i++) {
       movies.add(_decodeJsonData(jsonData[i]));
     }
     return movies;
   }
 
-  static List<Movie> updateData(String movieListData, int start, int end) {
+  static List<Movie> updateData(jsonData, int start, int end) {
     List<Movie> movies = new List<Movie>();
-    var jsonData = json.decode(movieListData);
-    jsonData = jsonData['subjects'];
     for (int i = start; i < end; i++) {
       movies.add(_decodeJsonData(jsonData[i]));
     }
