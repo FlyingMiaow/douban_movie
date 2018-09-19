@@ -21,11 +21,34 @@ class Movie {
     this.id,
   });
 
-  static List<Movie> getData(String movieListData) {
+  static List<Movie> getData(String movieListData, List<Movie> movies, int start, int end) {
+    var jsonData = json.decode(movieListData);
+    jsonData = jsonData['subjects'];
+    if (start > jsonData.length) {
+      return movies;
+    }
+    if (end == 0) {
+      if (jsonData.length > 5) {
+        end = 5;
+      } else {
+        end = jsonData.length;
+      }
+    } else {
+      if (end > jsonData.length) {
+        end = jsonData.length;
+      }
+    }
+    for (int i = start; i < end; i++) {
+      movies.add(_decodeJsonData(jsonData[i]));
+    }
+    return movies;
+  }
+
+  static List<Movie> updateData(String movieListData, int start, int end) {
     List<Movie> movies = new List<Movie>();
     var jsonData = json.decode(movieListData);
     jsonData = jsonData['subjects'];
-    for (int i = 0; i < jsonData.length; i++) {
+    for (int i = start; i < end; i++) {
       movies.add(_decodeJsonData(jsonData[i]));
     }
     return movies;

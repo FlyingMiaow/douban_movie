@@ -15,25 +15,54 @@ class MovieListPage extends StatefulWidget {
 class _MovieListPageState extends State<MovieListPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
   final TextEditingController _textEditingController = new TextEditingController();
+  ScrollController _scrollController = new ScrollController();
   List<Movie> movies = [];
+  int start = 0;
+  int end = 0;
+  bool isRunning = false;
 
   @override
   void initState() {
     super.initState();
-    _getMovieData();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        start = end;
+        end += 5;
+        _getMovieData('get');
+        _scaffoldKey.currentState.showSnackBar(_buildSnackBar('加载更多电影成功'));
+      }
+    });
+    _getMovieData('get');
   }
 
-  _getMovieData() async {
-    var httpClient = new HttpClient();
-    const String api = '?apikey=0b2bdeda43b5688921839c8ecb20399b';
-    final url = 'https://api.douban.com/v2/movie/in_theaters' + api;
-    var request = await httpClient.getUrl(Uri.parse(url));
-    var response = await request.close();
-    if (response.statusCode == HttpStatus.ok) {
-      var movieListData = await response.transform(utf8.decoder).join();
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
+
+  _getMovieData(String flag) async {
+    if (!isRunning) {
       setState(() {
-        movies = Movie.getData(movieListData);
+        isRunning = true;
       });
+      var httpClient = new HttpClient();
+      const String api = '?apikey=0b2bdeda43b5688921839c8ecb20399b';
+      final url = 'https://api.douban.com/v2/movie/in_theaters' + api;
+      var request = await httpClient.getUrl(Uri.parse(url));
+      var response = await request.close();
+      if (response.statusCode == HttpStatus.ok) {
+        var movieListData = await response.transform(utf8.decoder).join();
+        setState(() {
+          if (flag == 'get') {
+            movies = Movie.getData(movieListData, movies, start, end);
+            end = movies.length;
+          } else if (flag == 'update') {
+            movies = Movie.updateData(movieListData, 0, end);
+          }
+          isRunning = false;
+        });
+      }
     }
   }
 
@@ -45,6 +74,7 @@ class _MovieListPageState extends State<MovieListPage> {
     } else {
       movieItems = new Scrollbar(
         child: new SingleChildScrollView(
+          controller: _scrollController,
           child: new Column(
             children: <Widget>[
               _buildSearchBar(),
@@ -176,12 +206,16 @@ class _MovieListPageState extends State<MovieListPage> {
   }
 
   Future<Null> _refreshMovieList() async {
-    _getMovieData();
+    _getMovieData('update');
+    _scaffoldKey.currentState.showSnackBar(_buildSnackBar('刷新成功'));
+  }
+
+  _buildSnackBar(String text) {
     final snackBar = new SnackBar(
-      content: new Text('刷新成功'),
+      content: new Text(text),
       duration: new Duration(seconds: 1),
       backgroundColor: Colors.black12,
     );
-    _scaffoldKey.currentState.showSnackBar(snackBar);
+    return snackBar;
   }
 }
