@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:douban_movie/movie/list/movie_list_page.dart';
+import 'page/movie_list_page.dart';
 import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
 void main() {

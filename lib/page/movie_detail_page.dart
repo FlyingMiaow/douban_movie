@@ -2,9 +2,9 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:douban_movie/movie/list/movie_list.dart';
-import 'package:douban_movie/movie/detail/movie_detail.dart';
 import 'package:transparent_image/transparent_image.dart';
+import '../class/movie_list.dart';
+import '../class/movie_detail.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final Movie movie;

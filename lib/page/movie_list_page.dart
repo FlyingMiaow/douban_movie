@@ -2,9 +2,9 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:douban_movie/movie/list/movie_list.dart';
-import 'package:douban_movie/movie/detail/movie_detail_page.dart';
-import 'package:douban_movie/movie/search/movie_search_page.dart';
+import '../class/movie_list.dart';
+import '../page/movie_detail_page.dart';
+import '../page/movie_search_page.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MovieListPage extends StatefulWidget {
