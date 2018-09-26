@@ -38,9 +38,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
-        title: new Text(_bottomBarTitles[_tableIndex]),
-      ),
       body: _bodies[_tableIndex],
       bottomNavigationBar: new BottomNavigationBar(
         items: [
@@ -53,7 +50,9 @@ class _MainPageState extends State<MainPage> {
             _tableIndex = index;
           });
         },
-        iconSize: 20.0,
+      ),
+      drawer: new Drawer(
+        child: new Center(child: new Text('This is a drawer')),
       ),
     );
   }

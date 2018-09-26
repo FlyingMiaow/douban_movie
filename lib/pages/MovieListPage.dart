@@ -107,6 +107,9 @@ class _MovieListPageState extends State<MovieListPage> {
     }
     return new Scaffold(
       key: _scaffoldKey,
+      appBar: new AppBar(
+        title: new Text('正在热映'),
+      ),
       body: RefreshIndicator(child: content, onRefresh: _refreshMovieList),
     );
   }
