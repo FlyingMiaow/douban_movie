@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
-import '../class/movie_list.dart';
-import '../class/movie_detail.dart';
+import '../classes/MovieListClass.dart';
+import '../classes/MovieDetailClass.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final Movie movie;
@@ -45,52 +45,41 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   Widget build(BuildContext context) {
     var content;
     if (movieDetail == null) {
-      content = new Center(
-        child: new Text('正在获取数据'),
-      );
+      content = new Center(child: new CircularProgressIndicator());
     } else {
       content = new Scrollbar(
         child: new ListView(
           children: <Widget>[
-            new Container(
-              padding: new EdgeInsets.all(10.0),
+            new Padding(
+              padding: new EdgeInsets.all(5.0),
               child: _buildMovieDetail(),
             ),
             new Center(
-              child: new Padding(
-                padding: new EdgeInsets.only(top: 5.0),
-                child: new Text(
-                  '剧情简介',
-                  style: new TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
-                    color: Colors.blue,
-                  ),
+              child: new Text(
+                '剧情简介',
+                style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blue),
+              ),
+            ),
+            new Padding(
+              padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 10.0),
+              child: _buildMovieSummary(),
+            ),
+            new Center(
+              child: new Text(
+                '演职员表',
+                style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blue,
                 ),
               ),
             ),
             new Padding(
-              padding: const EdgeInsets.only(right: 10.0, bottom: 10.0, left: 10.0),
-              child: _buildMovieSummary(),
-            ),
-            new Center(
-              child: new Padding(
-                padding: new EdgeInsets.only(top: 5.0),
-                child: new Text(
-                  '演职员表',
-                  style: new TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
-                    color: Colors.blue,
-                  ),
+              padding: const EdgeInsets.fromLTRB(5.0, 0.0, 5.0, 10.0),
+              child: new LimitedBox(
+                maxHeight: 170.0,
+//                height: 170.0,
+                child: new ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: _buildCrewItems(),
                 ),
-              ),
-            ),
-            new SizedBox(
-              height: 170.0,
-              child: new ListView(
-                scrollDirection: Axis.horizontal,
-                children: _buildCrewItems(),
               ),
             )
           ],
@@ -112,10 +101,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           padding: new EdgeInsets.only(right: 10.0),
           child: new FadeInImage(
             placeholder: new MemoryImage(kTransparentImage),
-            image: new NetworkImage(
-              widget.movie.smallImage,
-              scale: 1.75,
-            ),
+            image: new NetworkImage(widget.movie.smallImage, scale: 1.75),
           ),
         ),
         new Expanded(
@@ -141,7 +127,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 
   _buildMovieSummary() {
     return new Card(
-      child: new Container(
+      child: new Padding(
         padding: new EdgeInsets.all(7.5),
         child: new Text(movieDetail.summary),
       ),

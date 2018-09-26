@@ -2,9 +2,9 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import '../class/movie_list.dart';
-import '../page/movie_detail_page.dart';
-import '../page/movie_search_page.dart';
+import '../classes/MovieListClass.dart';
+import 'MovieDetailPage.dart';
+import 'MovieSearchPage.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class MovieListPage extends StatefulWidget {
@@ -86,11 +86,11 @@ class _MovieListPageState extends State<MovieListPage> {
 
   @override
   Widget build(BuildContext context) {
-    var movieItems;
+    var content;
     if (movies.isEmpty) {
-      movieItems = new Center(child: new Text('正在获取数据'));
+      content = new Center(child: new CircularProgressIndicator());
     } else {
-      movieItems = new Scrollbar(
+      content = new Scrollbar(
         child: new SingleChildScrollView(
           controller: _scrollController,
           child: new Column(
@@ -107,15 +107,13 @@ class _MovieListPageState extends State<MovieListPage> {
     }
     return new Scaffold(
       key: _scaffoldKey,
-      appBar: new AppBar(
-        title: new Text('热映电影'),
-      ),
-      body: RefreshIndicator(child: movieItems, onRefresh: _refreshMovieList),
+      body: RefreshIndicator(child: content, onRefresh: _refreshMovieList),
     );
   }
 
   _buildSearchBar() {
-    return new Container(
+    return new Padding(
+      padding: const EdgeInsets.only(left: 5.0),
       child: new Row(
         children: <Widget>[
           new Expanded(
@@ -123,12 +121,10 @@ class _MovieListPageState extends State<MovieListPage> {
               controller: _textEditingController,
               onSubmitted: _searchMovie,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(10.0),
+                contentPadding: EdgeInsets.all(5.0),
                 hintText: '点击搜索影片',
                 hintStyle: TextStyle(fontSize: 12.0),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                )
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
               ),
             ),
           ),
@@ -138,7 +134,6 @@ class _MovieListPageState extends State<MovieListPage> {
           ),
         ],
       ),
-      padding: const EdgeInsets.only(left: 5.0),
     );
   }
 
@@ -166,14 +161,11 @@ class _MovieListPageState extends State<MovieListPage> {
 
   _buildMovieItem(Movie movie) {
     var movieImage = new Padding(
-        padding: const EdgeInsets.only(top: 5.0, right: 10.0, bottom: 5.0, left: 5.0),
-        child: new FadeInImage(
-          placeholder: new MemoryImage(kTransparentImage),
-          image: new NetworkImage(
-            movie.smallImage,
-            scale: 3.0,
-          ),
-        )
+      padding: const EdgeInsets.fromLTRB(5.0, 0.0, 10.0, 0.0),
+      child: new FadeInImage(
+        placeholder: new MemoryImage(kTransparentImage),
+        image: new NetworkImage(movie.smallImage, scale: 3.0),
+      ),
     );
 
     var movieInformation = new Column(
@@ -190,15 +182,12 @@ class _MovieListPageState extends State<MovieListPage> {
         new Text('评分：${movie.averageRating}'),
         new Text(
           '${movie.collectCount}人看过',
-          style: new TextStyle(
-            fontSize: 12.0,
-            color: Colors.redAccent,
-          ),
+          style: new TextStyle(fontSize: 12.0, color: Colors.redAccent),
         ),
       ],
     );
 
-    var movieItem = new GestureDetector(
+    var movieItem = new InkWell(
       onTap: () => navigateToMovieDetailPage(movie),
       child: new Column(
         children: <Widget>[
