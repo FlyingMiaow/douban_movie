@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import '../classes/MovieListClass.dart';
+import '../classes/MovieClass.dart';
 import 'MovieDetailPage.dart';
 import 'MovieSearchPage.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -55,8 +55,8 @@ class _MovieListPageState extends State<MovieListPage> {
         isRunning = true;
       });
       var httpClient = new HttpClient();
-      const String api = '?apikey=0b2bdeda43b5688921839c8ecb20399b';
-      final url = 'https://api.douban.com/v2/movie/in_theaters' + api;
+      const String parameter = '?apikey=0b2bdeda43b5688921839c8ecb20399b&count=100';
+      final url = 'https://api.douban.com/v2/movie/in_theaters' + parameter;
       var request = await httpClient.getUrl(Uri.parse(url));
       var response = await request.close();
       if (response.statusCode == HttpStatus.ok) {
@@ -107,9 +107,6 @@ class _MovieListPageState extends State<MovieListPage> {
     }
     return new Scaffold(
       key: _scaffoldKey,
-      appBar: new AppBar(
-        title: new Text('正在热映'),
-      ),
       body: RefreshIndicator(child: content, onRefresh: _refreshMovieList),
     );
   }

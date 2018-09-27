@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
-import '../classes/MovieListClass.dart';
+import '../classes/MovieClass.dart';
 import '../classes/MovieDetailClass.dart';
 
 class MovieDetailPage extends StatefulWidget {
